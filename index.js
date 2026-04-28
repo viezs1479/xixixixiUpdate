@@ -1317,11 +1317,11 @@ function getAnimatedMainKeyboard() {
 
     return [
         [
-            { text: "Bugs", callback_data:
+            { text: "𝗫𝗕𝗨𝗚𝗦", callback_data:
  "/bug_menu", style },
-            { text: "Owners" , 
+            { text: "𝗢𝗪𝗡𝗘𝗥" , 
 url: "t.me/KuzooX", style },
-            { text: "Settings" ,
+            { text: "𝗫𝗦𝗘𝗧𝗧𝗜𝗡𝗚𝗦" ,
 callback_data: "/owner_menu", style }
         ]
     ];
