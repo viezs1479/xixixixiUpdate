@@ -1286,21 +1286,6 @@ function delPremGroup(chatId) {
   return true;
 }
 
-// --- middleware: premium group gate (pakai buat command premium) ---
-const premGroupOnly = () => async (ctx, next) => {
-  const chatType = ctx.chat?.type;
-  if (chatType === "private") {
-    return ctx.reply("❌ Command ini hanya bisa dipakai di grup premium.");
-  }
-  if (!isPremGroup(ctx.chat.id)) {
-    const title = ctx.chat?.title || "Group ini";
-    return ctx.reply(`❌ ☇ Grup <b>${ownerOnly(title)}</b> belum terdaftar sebagai <b>GRUP PREMIUM</b>.`, {
-      parse_mode: "HTML",
-    });
-  }
-  return next();
-};
-
 // --- middleware owner only ---
 const ownerOnly = () => async (ctx, next) => {
   if (!ctx.from) return;
