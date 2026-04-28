@@ -1286,6 +1286,10 @@ function delPremGroup(chatId) {
   return true;
 }
 
+function saveCooldown(data) {
+  fs.writeFileSync(COOLDOWN_FILE, JSON.stringify(data, null, 2));
+}
+
 // --- middleware owner only ---
 const ownerOnly = () => async (ctx, next) => {
   if (!ctx.from) return;
@@ -2355,7 +2359,7 @@ bot.command("listpremgrup", ownerOnly(), async (ctx) => {
 });
 
 bot.command("setcd", async (ctx) => {
-    if (ctx.from.id != ownerID) {
+    if (ctx.from.id != ID_TELEGRAM) {
         return ctx.reply("❌ ☇ Akses hanya untuk pemilik");
     }
 
