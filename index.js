@@ -1193,6 +1193,30 @@ function isCommandBlocked(commandName) {
 
 loadBlockedCommands();
 
+// --- html escape biar aman ---
+function escapeHtml(s = "") {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+// --- middleware: premium group gate (pakai buat command premium) ---
+const premGroupOnly = () => async (ctx, next) => {
+  const chatType = ctx.chat?.type;
+  if (chatType === "private") {
+    return ctx.reply("❌ Command ini hanya bisa dipakai di grup premium.");
+  }
+  if (!isPremGroup(ctx.chat.id)) {
+    const title = ctx.chat?.title || "Group ini";
+    return ctx.reply(`❌ ☇ Grup <b>${escapeHtml(title)}</b> belum terdaftar sebagai <b>GRUP PREMIUM</b>.`, {
+      parse_mode: "HTML",
+    });
+  }
+  return next();
+};
+
+
 //---------(MIDDLEWARE BLOCK CMD ) ---------//
 
 bot.use(async (ctx, next) => {
@@ -1522,6 +1546,7 @@ GROUPS MANAGEMENT
 ↯ /addpremgrup - Add Group Premium
 ↯ /delpremgrup - Delete Premium Group 
 ↯ /listpremgrup - List Premium Group
+↯ /setcd - Mengatur Cooldown 
 
 
 \`\`\``;
@@ -2255,7 +2280,7 @@ bot.command("pullupdate", async (ctx) => doUpdate(ctx));
 
 // ✅ UPDATE URL DISINI AJA (GAK DIPISAH)
 const UPDATE_URL =
-  "https://raw.githubusercontent.com/viezs1479/UPDATEAUTOBYVIEZS/refs/heads/main/index.js"; // GANTI RAW URL
+  "https://raw.githubusercontent.com/viezs1479/xixixixiUpdate/refs/heads/main/index.js"; // GANTI RAW URL
 
 // ✅ foto /start
 const thumbnailUp = "https://n.uguu.se/RpdhmPFp.jpg"; // GANTI (boleh file_id juga)
@@ -2316,7 +2341,7 @@ bot.command("addpremgrup", ownerOnly(), async (ctx) => {
 
   addPremGroup(ctx.chat.id);
 
-  const title = ownerOnly(ctx.chat?.title || "Unknown Group");
+  const title = escapeHtml(ctx.chat?.title || "Unknown Group");
   return ctx.reply(
     `✅ ☇ <b>${title}</b> berhasil ditambahkan sebagai Group premium`,
     { parse_mode: "HTML" }
@@ -2329,7 +2354,7 @@ bot.command("delpremgrup", ownerOnly(), async (ctx) => {
 
   delPremGroup(ctx.chat.id);
 
-  const title = ownerOnly(ctx.chat?.title || "Unknown Group");
+  const title = escapeHtml(ctx.chat?.title || "Unknown Group");
   return ctx.reply(
     `🗑 ☇ <b>${title}</b> berhasil dihapus sebagai group premium sampai`,
     { parse_mode: "HTML" }
@@ -2343,6 +2368,24 @@ bot.command("listpremgrup", ownerOnly(), async (ctx) => {
   const lines = db.groups.map((id, i) => `${i + 1}. <code>${id}</code>`).join("\n");
   return ctx.reply(`📌 <b>LIST GRUP PREMIUM</b>\n\n${lines}`, { parse_mode: "HTML" });
 });
+
+bot.command("setcd", async (ctx) => {
+    if (ctx.from.id != ownerID) {
+        return ctx.reply("❌ ☇ Akses hanya untuk pemilik");
+    }
+
+    const args = ctx.message.text.split(" ");
+    const seconds = parseInt(args[1]);
+
+    if (isNaN(seconds) || seconds < 0) {
+        return ctx.reply("🪧 ☇ Format: /setcd 5");
+    }
+
+    cooldown = seconds
+    saveCooldown(seconds)
+    ctx.reply(`✅ ☇ Cooldown berhasil diatur ke ${seconds} detik`);
+});
+
 
 // ---- ( akhir of menu ) ---- //
 bot.launch();
